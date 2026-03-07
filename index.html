@@ -1727,8 +1727,7 @@
 
     <!-- Background Music -->
     <audio id="bgMusic" loop preload="auto">
-        <source src="birthday-song.mp3" type="audio/mpeg">
-        <source src="birthday-song.ogg" type="audio/ogg">
+        <source src="heureux.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -1832,8 +1831,8 @@
         function startCountdown() {
             // Set birthday date (change to her actual birthday)
             const birthday = new Date();
-            birthday.setMonth(6); // July (0-indexed, so 6 = July)
-            birthday.setDate(15); // 15th
+            birthday.setMonth(2); 
+            birthday.setDate(8);
             birthday.setHours(0, 0, 0, 0);
             
             // If birthday has passed this year, set to next year
@@ -2180,5 +2179,6 @@
     </script>
 </body>
 </html>
+
 
 
