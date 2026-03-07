@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎂 Happy Birthday, My Love! 🎂</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes&family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&display=swap');
 
         * {
             margin: 0;
@@ -348,7 +348,7 @@
 
         .letter-container {
             position: relative;
-            max-width: 700px;
+            max-width: 750px;
             margin: 0 auto;
             perspective: 1000px;
         }
@@ -373,7 +373,7 @@
             position: relative;
             background: linear-gradient(135deg, #fef9e7 0%, #fdf6e3 25%, #fff8dc 50%, #fef9e7 75%, #fdf6e3 100%);
             color: #4a4a4a;
-            padding: 60px 50px 50px;
+            padding: 70px 55px 60px;
             border-radius: 5px;
             box-shadow: 
                 0 0 0 1px rgba(139, 119, 101, 0.2),
@@ -381,14 +381,13 @@
                 0 8px 16px rgba(0,0,0,0.1),
                 0 16px 32px rgba(0,0,0,0.15),
                 inset 0 0 80px rgba(139, 119, 101, 0.05);
-            line-height: 2;
             font-size: 1.05em;
             transform: rotate(-0.5deg);
             transition: transform 0.3s ease;
         }
 
         .birthday-letter:hover {
-            transform: rotate(0deg) scale(1.01);
+            transform: rotate(0deg) scale(1.005);
         }
 
         /* Paper texture overlay */
@@ -403,8 +402,8 @@
                 repeating-linear-gradient(
                     0deg,
                     transparent,
-                    transparent 27px,
-                    rgba(139, 119, 101, 0.1) 28px
+                    transparent 31px,
+                    rgba(139, 119, 101, 0.08) 32px
                 );
             pointer-events: none;
             border-radius: 5px;
@@ -481,7 +480,7 @@
         /* Decorative header border */
         .letter-header-decoration {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             position: relative;
         }
 
@@ -510,44 +509,204 @@
             margin-top: 15px;
         }
 
-        /* Letter content styling */
+        /* Letter content styling - HANDWRITING FONT */
         .letter-content {
             position: relative;
             z-index: 1;
-            padding: 0 20px;
+            padding: 0 15px;
+            font-family: 'Kalam', cursive;
+            font-size: 1.15em;
+            line-height: 2;
+            color: #3d3d3d;
         }
 
         .letter-content p {
-            margin-bottom: 18px;
-            text-align: justify;
-            text-indent: 30px;
-            color: #5a5a5a;
-        }
-
-        .letter-content p:first-of-type {
-            text-indent: 0;
+            margin-bottom: 20px;
+            text-align: left;
         }
 
         .letter-greeting {
             font-family: 'Great Vibes', cursive;
-            font-size: 2em;
+            font-size: 2.2em;
             color: #6b5b4f;
-            margin-bottom: 20px;
-            text-indent: 0 !important;
-            text-align: left !important;
+            margin-bottom: 25px;
+            text-align: left;
         }
 
+        /* Highlighted text styles */
         .letter-content .highlight {
+            background: linear-gradient(120deg, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.3) 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #5a4a3a;
+            font-weight: 600;
+        }
+
+        .letter-content .emphasis {
             color: #8b5a5a;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .letter-content .strong-text {
+            color: #4a6fa5;
+            font-weight: 700;
+        }
+
+        .letter-content .love-text {
+            color: #c44569;
+            font-weight: 600;
+        }
+
+        .letter-content .golden-text {
+            color: #b8860b;
+            font-weight: 600;
+        }
+
+        /* Section headers in letter */
+        .letter-section-header {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5em;
+            color: #6b5b4f;
+            margin: 30px 0 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .letter-section-header::before,
+        .letter-section-header::after {
+            content: '~';
+            margin: 0 10px;
+            color: #c9a959;
+        }
+
+        /* Bullet lists in letter */
+        .letter-list {
+            list-style: none;
+            padding-left: 10px;
+            margin: 20px 0;
+        }
+
+        .letter-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+
+        .letter-list li::before {
+            content: attr(data-emoji);
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .letter-list.heart-list li::before {
+            content: '💙';
+        }
+
+        .letter-list.star-list li::before {
+            content: '⭐';
+        }
+
+        .letter-list.sparkle-list li::before {
+            content: '✨';
+        }
+
+        .letter-list.flower-list li::before {
+            content: '🌸';
+        }
+
+        /* Special quote boxes */
+        .letter-quote {
+            background: rgba(139, 119, 101, 0.08);
+            border-left: 4px solid #c9a959;
+            padding: 15px 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
             font-style: italic;
         }
 
-        .letter-content .wishes-list {
-            text-indent: 0 !important;
-            text-align: left !important;
-            padding-left: 20px;
+        .letter-quote p {
+            margin-bottom: 8px !important;
+        }
+
+        .letter-quote p:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        /* Centered emphasis text */
+        .letter-centered {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .letter-centered p {
+            margin-bottom: 10px;
+        }
+
+        /* Big statement text */
+        .big-statement {
+            font-size: 1.3em;
+            text-align: center;
+            color: #6b5b4f;
+            margin: 25px 0;
+            font-weight: 600;
+        }
+
+        .big-statement .but-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8em;
+            color: #c44569;
+            display: block;
             margin: 20px 0;
-            line-height: 2.2;
+        }
+
+        /* Affirmation blocks */
+        .affirmation-block {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(123, 104, 238, 0.1));
+            border: 2px dashed #c9a959;
+            border-radius: 15px;
+            padding: 20px 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .affirmation-block p {
+            margin-bottom: 8px !important;
+            font-weight: 500;
+        }
+
+        .negative-affirmation {
+            color: #888;
+            text-decoration: line-through;
+            text-decoration-color: #c44569;
+        }
+
+        .positive-affirmation {
+            color: #4a6fa5;
+            font-weight: 700;
+        }
+
+        /* Decorative dividers */
+        .letter-divider {
+            text-align: center;
+            margin: 30px 0;
+            color: #c9a959;
+            font-size: 1.2em;
+            letter-spacing: 5px;
+        }
+
+        .letter-divider.hearts::before {
+            content: '💙 ═══════ 💙 ═══════ 💙';
+        }
+
+        .letter-divider.stars::before {
+            content: '⭐ ─── ✨ ─── ⭐ ─── ✨ ─── ⭐';
+        }
+
+        .letter-divider.flowers::before {
+            content: '🌸 ─── 🌸 ─── 🌸';
         }
 
         /* Wax seal */
@@ -555,8 +714,8 @@
             position: absolute;
             bottom: -25px;
             right: 40px;
-            width: 70px;
-            height: 70px;
+            width: 75px;
+            height: 75px;
             background: radial-gradient(circle at 30% 30%, #c41e3a, #8b0000, #5c0000);
             border-radius: 50%;
             display: flex;
@@ -572,7 +731,7 @@
 
         .wax-seal::before {
             content: '💙';
-            font-size: 28px;
+            font-size: 30px;
             filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
         }
 
@@ -590,15 +749,13 @@
         /* Letter signature */
         .letter-signature {
             text-align: right;
-            margin-top: 35px;
+            margin-top: 40px;
             padding-right: 100px;
             position: relative;
         }
 
         .letter-signature p {
-            text-indent: 0 !important;
-            text-align: right !important;
-            margin-bottom: 5px;
+            margin-bottom: 5px !important;
         }
 
         .letter-signature .sign-text {
@@ -610,7 +767,7 @@
 
         .letter-signature .sign-name {
             font-family: 'Great Vibes', cursive;
-            font-size: 2.2em;
+            font-size: 2.4em;
             color: #8b5a5a;
             margin-top: 10px;
         }
@@ -618,7 +775,7 @@
         /* Footer decoration */
         .letter-footer-decoration {
             text-align: center;
-            margin-top: 30px;
+            margin-top: 35px;
             padding-top: 20px;
             border-top: 1px dashed rgba(139, 119, 101, 0.3);
         }
@@ -1034,7 +1191,12 @@
             }
 
             .birthday-letter {
-                padding: 50px 30px 40px;
+                padding: 55px 30px 50px;
+            }
+
+            .letter-content {
+                padding: 0 10px;
+                font-size: 1.05em;
             }
 
             .letter-header-decoration h2 {
@@ -1046,18 +1208,22 @@
             }
 
             .wax-seal {
-                width: 55px;
-                height: 55px;
-                right: 20px;
+                width: 60px;
+                height: 60px;
+                right: 25px;
                 bottom: -20px;
             }
 
             .wax-seal::before {
-                font-size: 22px;
+                font-size: 24px;
             }
 
             .letter-signature {
-                padding-right: 70px;
+                padding-right: 80px;
+            }
+
+            .letter-greeting {
+                font-size: 1.8em;
             }
 
             .countdown-item {
@@ -1098,11 +1264,12 @@
             }
 
             .birthday-letter {
-                padding: 40px 20px 35px;
+                padding: 45px 20px 40px;
             }
 
             .letter-content {
-                padding: 0 10px;
+                padding: 0 5px;
+                font-size: 1em;
             }
 
             .letter-header-decoration h2 {
@@ -1115,6 +1282,18 @@
 
             .letter-signature .sign-name {
                 font-size: 1.8em;
+            }
+
+            .letter-signature {
+                padding-right: 60px;
+            }
+
+            .big-statement {
+                font-size: 1.1em;
+            }
+
+            .letter-section-header {
+                font-size: 1.3em;
             }
         }
     </style>
@@ -1209,33 +1388,194 @@
                     
                     <!-- Letter content -->
                     <div class="letter-content">
-                        <p class="letter-greeting">My Dearest Leafa,</p>
+                        <p class="letter-greeting">My Dearest Leafa, 💙</p>
                         
-                        <p>Happy Birthday, my beautiful girl! 🎂✨</p>
+                        <p>I don't even know where to begin, because <span class="emphasis">how do you properly celebrate someone who has quietly become such a huge part of your world?</span> ✨</p>
                         
-                        <p>Today marks another year of your incredible existence in this world, and I couldn't be more grateful that I get to celebrate it with you – even if it's through a screen for now.</p>
+                        <p>This day isn't just another date on the calendar. It's the day the person who changed my routines, my nights, my thoughts, and even parts of my heart — <span class="highlight">was born</span>. It's the day the world was blessed with you — and somehow, against all odds, <span class="love-text">I was blessed enough to meet you too</span>. 🌟</p>
+
+                        <div class="letter-divider hearts"></div>
                         
-                        <p>On this special day, I want you to know just how much you mean to me. From the moment you came into my life, everything changed. The late-night conversations, the random check-ins, the silly jokes, and even the moments of comfortable silence – they all became the highlights of my days.</p>
+                        <p>It still amazes me how we built something so real <span class="emphasis">without ever meeting yet</span>. No physical presence. No hand to hold. No birthday hug today. 💭</p>
                         
-                        <p>You've taught me what it means to truly care about someone. Your strength inspires me, your kindness moves me, and your smile... well, let's just say it's <span class="highlight">the most beautiful thing I've ever seen in my life</span>. 🥰</p>
+                        <p>And yet somehow, what we share feels <span class="strong-text">deeper than most things people build face to face</span>.</p>
                         
-                        <p>I know we haven't met in person yet, but what we have feels so real, so special, so <em>us</em>. And I can't wait for the day when I can celebrate your birthday by your side, holding your hand, and watching you blow out candles on a real cake.</p>
+                        <div class="letter-quote">
+                            <p>We built this through <span class="highlight">words</span>. ✍️</p>
+                            <p>Through <span class="highlight">paragraphs</span>. 📝</p>
+                            <p>Through <span class="highlight">long late-night convos</span> that refused to end at 11:30 when in full swing — even forgetting about the time. 🌙</p>
+                            <p>Through <span class="highlight">misunderstandings</span> we chose to talk through instead of run from. 💬</p>
+                            <p>Through <span class="highlight">comfort</span>. Through <span class="highlight">reassurance</span>. Through <span class="love-text">choosing each other over and over</span>. 💕</p>
+                        </div>
+
+                        <div class="letter-divider stars"></div>
+
+                        <p class="letter-section-header">~ On Your Strength ~</p>
                         
-                        <p>Until then, know that you are loved beyond words, cherished beyond measure, and celebrated today and every day.</p>
+                        <p>You once said communication wasn't your strongest suit. <span class="strong-text">But do you even realize how brave it is to open up the way you do?</span> 💪</p>
                         
-                        <p class="wishes-list">
-                            May this year bring you:<br>
-                            🌟 Endless happiness and laughter<br>
-                            ✨ Dreams that come true<br>
-                            💫 Success in everything you do
-                        </p>
+                        <ul class="letter-list sparkle-list">
+                            <li>Those paras about your high school days</li>
+                            <li>The vulnerable moments about your mental battles</li>
+                            <li>The way you admit when you spiral</li>
+                            <li>The way you <span class="emphasis">try</span>, even when you feel like you're failing</li>
+                        </ul>
                         
-                        <p>You deserve the world and more, my love. Happy Birthday! 🎉💕</p>
+                        <div class="big-statement">
+                            <span class="golden-text">That's strength. That's someone worth celebrating.</span><br>
+                            <span class="love-text">You have no idea how much you matter.</span> 💫
+                        </div>
+
+                        <div class="letter-divider flowers"></div>
+
+                        <p class="letter-section-header">~ What You Mean To Me ~</p>
+                        
+                        <ul class="letter-list heart-list">
+                            <li>You are the person <span class="strong-text">I look forward to talking to</span></li>
+                            <li>The one whose paragraphs I used to look forward to every morning no matter how chaotic my day was 📨</li>
+                            <li>The notification that <span class="highlight">lightens my mood instantly</span> ✨</li>
+                            <li>The one whose silence I notice 🤍</li>
+                            <li>The one whose well-being genuinely affects my day 💙</li>
+                            <li>The one whose goodnight messages became part of my routine 🌙</li>
+                            <li>The one whose selfies can send me into <span class="emphasis">overkill mode</span> like an idiot because I'm that head over heels for you 🥰</li>
+                        </ul>
+
+                        <div class="letter-divider stars"></div>
+
+                        <p class="letter-section-header">~ And Don't Get Me Started On You ~</p>
+                        
+                        <div class="letter-quote">
+                            <p>👀 <span class="strong-text">Your eyes?</span> Dangerous levels of pretty.</p>
+                            <p>😊 <span class="strong-text">Your smile?</span> <span class="love-text">Illegal</span> — cuz it could fix an entire bad week.</p>
+                            <p>💖 <span class="strong-text">Your personality?</span> Soft yet stubborn, realistic yet caring, independent yet worthy of being <span class="emphasis">protected and spoiled</span>.</p>
+                        </div>
+                        
+                        <p>The pictures you trusted me with, the parts of your past you shared, the struggles you admitted, the obsessions you "rambled" about — all of it feels like <span class="highlight">chapters of a story I'm honored to read</span>. 📖</p>
+                        
+                        <p>I meant it when I said <span class="love-text">you feel like a book series I'm hooked on</span>. Every layer you unlock feels like a privilege and makes me keep waiting for more <span class="emphasis">(even tho the hiatus has been bit long—)</span> 😅💕</p>
+
+                        <div class="letter-divider hearts"></div>
+
+                        <p class="letter-section-header">~ Your Journey This Year ~</p>
+                        
+                        <p>I know this past year hasn't always been light for you. I know there were days you felt anti-social, silent days you felt disconnected. 🌧️</p>
+                        
+                        <p><span class="strong-text">But you are still here.</span></p>
+                        
+                        <ul class="letter-list star-list">
+                            <li>Still <span class="highlight">trying</span></li>
+                            <li>Still <span class="highlight">learning</span></li>
+                            <li>Still <span class="highlight">evolving</span></li>
+                        </ul>
+                        
+                        <p><span class="love-text">And I'm so proud of you for that.</span> 🌟</p>
+                        
+                        <div class="affirmation-block">
+                            <p>Remember that:</p>
+                            <p>💙 You don't need to do a full 180 to deserve love</p>
+                            <p>💙 You don't need to become easier to handle</p>
+                            <p>💙 You don't need to lose yourself to keep people</p>
+                        </div>
+                        
+                        <p>Even during phases where time felt shorter, where routines shifted, where conversations felt chaotic — <span class="strong-text">I never once doubted wanting you</span>. If anything, those moments just showed me how much I value what we have — even when bits of realism and other overthinking thoughts tried to invade in the silence. 💭✨</p>
+
+                        <div class="letter-divider stars"></div>
+
+                        <p class="letter-section-header">~ Today, I Celebrate ~</p>
+                        
+                        <p>So today, I don't just celebrate the cute girl I'm head over heels for as her biggest simp. 🙈💕</p>
+                        
+                        <p><span class="golden-text">I celebrate:</span></p>
+                        
+                        <ul class="letter-list flower-list">
+                            <li>The <span class="strong-text">resilience</span> you don't give yourself credit for 💪</li>
+                            <li>The <span class="love-text">heart</span> that loves intensely ❤️</li>
+                            <li>The <span class="strong-text">mind</span> that overthinks but still chooses honesty 🧠</li>
+                            <li>The girl who worries about being a burden while <span class="emphasis">carrying so much herself</span> 🌸</li>
+                        </ul>
+
+                        <div class="letter-divider hearts"></div>
+
+                        <div class="affirmation-block">
+                            <p class="negative-affirmation">You are not hard to love. ❌</p>
+                            <p class="negative-affirmation">You are not a burden. ❌</p>
+                            <p class="negative-affirmation">You are not "too much". ❌</p>
+                            <p class="negative-affirmation">You are not lacking. ❌</p>
+                        </div>
+
+                        <div class="big-statement">
+                            <span class="but-text">BUT</span>
+                            <p class="positive-affirmation">💙 You are <span class="highlight">Leafa</span>.</p>
+                            <p class="positive-affirmation">👑 You are <span class="highlight">my pride</span>.</p>
+                            <p class="positive-affirmation">☀️ You are <span class="highlight">my sunshine</span>.</p>
+                            <p class="positive-affirmation">🌟 You are <span class="highlight">the blessing I didn't know I needed</span>.</p>
+                        </div>
+
+                        <div class="letter-divider flowers"></div>
+
+                        <p class="letter-section-header">~ Who You Are To Me ~</p>
+                        
+                        <p>You are my <span class="strong-text">companion</span>. My <span class="strong-text">best friend</span>. My <span class="love-text">safe space</span>. 🏠💕</p>
+                        
+                        <p>The girl whose name lights up my notifications and somehow <span class="highlight">makes everything lighter</span>. ✨</p>
+                        
+                        <p>The one I miss in quiet moments to the point there's a <span class="emphasis">huge hole of emptiness in my days</span>. 💭</p>
+                        
+                        <p>The one I want to be there for — <span class="love-text">not just on easy days, but on the heavy ones too</span>. 🤍</p>
+
+                        <div class="letter-divider stars"></div>
+
+                        <p class="letter-section-header">~ My Wishes For You ~</p>
+                        
+                        <p>On your birthday, I don't just wish you happiness. 🎂</p>
+                        
+                        <ul class="letter-list star-list">
+                            <li>I wish you <span class="highlight">peace in your own mind</span> 🕊️</li>
+                            <li>I wish you <span class="highlight">softness toward yourself</span> 🌸</li>
+                            <li>I wish you <span class="highlight">the confidence to know that being Leafa is already enough</span> 💫</li>
+                            <li>I wish this year brings you <span class="golden-text">balance, growth, confidence, better health</span>, and tons of moments that make you feel truly lucky to be alive 🌈</li>
+                        </ul>
+                        
+                        <p>And selfishly? <span class="love-text">I wish to keep being part of your story</span>. To see more chapters. To celebrate more birthdays. To eventually laugh about how our first ones were spent miles apart but still felt so full. 📖💙</p>
+
+                        <div class="letter-divider hearts"></div>
+
+                        <p class="letter-section-header">~ If I Could Be There ~</p>
+                        
+                        <p>Even if we can't spend today side by side, know this:</p>
+                        
+                        <div class="letter-quote">
+                            <p><span class="emphasis">If I could, I would sit next to you, let you rest your head on my shoulder, and tell you in person how proud I am of you.</span> 🤍</p>
+                            <p>I'd remind you that <span class="strong-text">the world is better because you exist</span>. 🌍✨</p>
+                            <p>That <span class="love-text">my world is better because you exist</span>. 💙</p>
+                        </div>
+
+                        <div class="letter-divider flowers"></div>
+
+                        <p class="letter-section-header">~ Thank You ~</p>
+                        
+                        <ul class="letter-list heart-list">
+                            <li>Thank you for <span class="highlight">trusting me</span> 🤝</li>
+                            <li>Thank you for <span class="highlight">choosing discussion over distance</span> 💬</li>
+                            <li>Thank you for <span class="highlight">letting me be someone you rely on</span> 🏠</li>
+                            <li>Thank you for being my <span class="love-text">companion, my safe space, my favorite notification</span> 📱💕</li>
+                            <li>Thank you for being the Leafa you are — <span class="golden-text">without having to add filters or hide a part of yourself</span> ✨</li>
+                        </ul>
+
+                        <div class="letter-divider stars"></div>
+
+                        <div class="big-statement">
+                            <p>🎂 <span class="love-text">Happy Birthday</span> to the most <span class="highlight">beautiful</span>, <span class="highlight">cutest</span>, <span class="highlight">sweetest</span>, <span class="highlight">loveliest</span>, <span class="highlight">complicated</span>, <span class="highlight">strong</span>, <span class="highlight">adorable</span>, <span class="highlight">overthinking</span>, <span class="highlight">soft-hearted</span> <span class="golden-text">princess</span> I could've ever asked for. 👑💕</p>
+                        </div>
+
+                        <div class="letter-centered">
+                            <p style="font-size: 1.4em;"><span class="love-text">I love you.</span> ❤️</p>
+                            <p><span class="emphasis">Today, and on every day that follows till eternity.</span> ♾️💙</p>
+                        </div>
                         
                         <!-- Signature -->
                         <div class="letter-signature">
-                            <p class="sign-text">With all my love,</p>
-                            <p class="sign-text">Forever yours,</p>
+                            <p class="sign-text">Forever & Always Yours,</p>
                             <p class="sign-name">💙 Your Ash 💙</p>
                         </div>
                     </div>
@@ -1387,7 +1727,8 @@
 
     <!-- Background Music -->
     <audio id="bgMusic" loop preload="auto">
-        <source src="heureux.mp3" type="audio/mpeg">
+        <source src="birthday-song.mp3" type="audio/mpeg">
+        <source src="birthday-song.ogg" type="audio/ogg">
         Your browser does not support the audio element.
     </audio>
 
@@ -1491,8 +1832,8 @@
         function startCountdown() {
             // Set birthday date (change to her actual birthday)
             const birthday = new Date();
-            birthday.setMonth(2);
-            birthday.setDate(8); 
+            birthday.setMonth(6); // July (0-indexed, so 6 = July)
+            birthday.setDate(15); // 15th
             birthday.setHours(0, 0, 0, 0);
             
             // If birthday has passed this year, set to next year
@@ -1838,6 +2179,6 @@
         createStars();
     </script>
 </body>
-
 </html>
+
 
