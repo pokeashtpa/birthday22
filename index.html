@@ -14,9 +14,14 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Poppins', Arial, sans-serif;
             background: linear-gradient(135deg, #0a0a1a, #1a1a3a, #0d1b2a);
+            background-attachment: fixed;
             min-height: 100vh;
             overflow-x: hidden;
             color: #fff;
@@ -42,6 +47,7 @@
                 radial-gradient(1px 1px at 350px 60px, white, transparent),
                 radial-gradient(2px 2px at 420px 180px, rgba(255,255,255,0.8), transparent);
             background-size: 450px 200px;
+            background-repeat: repeat;
         }
 
         /* Floating Elements - Slower */
@@ -62,8 +68,14 @@
         }
 
         @keyframes floatUp {
-            0% { transform: translateY(100vh); opacity: 0.5; }
-            100% { transform: translateY(-50px); opacity: 0; }
+            0% { 
+                transform: translateY(100vh); 
+                opacity: 0.5; 
+            }
+            100% { 
+                transform: translateY(-50px); 
+                opacity: 0; 
+            }
         }
 
         /* Main Container */
@@ -78,7 +90,10 @@
         /* Entrance Screen */
         .entrance-screen {
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: linear-gradient(135deg, #667eea, #764ba2);
             display: flex;
             flex-direction: column;
@@ -91,10 +106,12 @@
         .entrance-screen.hidden {
             opacity: 0;
             pointer-events: none;
+            visibility: hidden;
         }
 
         .entrance-cake {
             font-size: 80px;
+            line-height: 1;
         }
 
         .entrance-title {
@@ -114,7 +131,7 @@
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
-            transition: transform 0.2s;
+            transition: transform 0.2s ease;
         }
 
         .entrance-btn:hover {
@@ -125,12 +142,7 @@
         .header {
             text-align: center;
             padding: 40px 15px;
-            opacity: 0;
-            animation: fadeIn 0.6s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
+            opacity: 1;
         }
 
         .header h1 {
@@ -140,6 +152,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            color: #00d4ff; /* Fallback */
         }
 
         .header .subtitle {
@@ -155,21 +168,28 @@
             margin-top: 8px;
         }
 
-        /* Section Styles */
+        /* Section Styles - FIXED */
         .section {
-            background: rgba(102, 126, 234, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background-color: rgba(102, 126, 234, 0.15);
             border-radius: 20px;
             padding: 30px 25px;
             margin: 25px 0;
-            border: 1px solid rgba(102, 126, 234, 0.2);
-            opacity: 0;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            opacity: 1; /* Changed from 0 to 1 for fallback */
+            visibility: visible;
             transition: opacity 0.4s ease;
         }
 
-        .section.visible {
+        /* Only hide if JS is working */
+        .js-enabled .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .js-enabled .section.visible {
             opacity: 1;
+            transform: translateY(0);
         }
 
         .section-title {
@@ -193,6 +213,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            color: #00d4ff; /* Fallback */
             line-height: 1;
         }
 
@@ -211,7 +232,7 @@
         }
 
         .countdown-item {
-            background: rgba(102, 126, 234, 0.3);
+            background-color: rgba(102, 126, 234, 0.3);
             padding: 15px 20px;
             border-radius: 15px;
             min-width: 70px;
@@ -230,19 +251,24 @@
             text-transform: uppercase;
         }
 
-        /* ===== LETTER STYLES ===== */
+        /* ===== LETTER STYLES - FIXED ===== */
         .letter-container {
             max-width: 680px;
             margin: 0 auto;
+            position: relative;
         }
 
         .birthday-letter {
             position: relative;
-            background: linear-gradient(135deg, #fef9e7, #fff8dc, #fef9e7);
+            background-color: #fef9e7;
+            background-image: linear-gradient(135deg, #fef9e7 0%, #fff8dc 50%, #fef9e7 100%);
             color: #3d3d3d;
             padding: 40px 30px 50px;
             border-radius: 5px;
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            display: block;
+            visibility: visible;
+            opacity: 1;
         }
 
         /* Corner decorations */
@@ -250,12 +276,37 @@
             position: absolute;
             width: 50px;
             height: 50px;
+            pointer-events: none;
         }
 
-        .corner-tl { top: 8px; left: 8px; border-top: 2px solid #8b7355; border-left: 2px solid #8b7355; border-radius: 10px 0 0 0; }
-        .corner-tr { top: 8px; right: 8px; border-top: 2px solid #8b7355; border-right: 2px solid #8b7355; border-radius: 0 10px 0 0; }
-        .corner-bl { bottom: 8px; left: 8px; border-bottom: 2px solid #8b7355; border-left: 2px solid #8b7355; border-radius: 0 0 0 10px; }
-        .corner-br { bottom: 8px; right: 8px; border-bottom: 2px solid #8b7355; border-right: 2px solid #8b7355; border-radius: 0 0 10px 0; }
+        .corner-tl { 
+            top: 8px; 
+            left: 8px; 
+            border-top: 2px solid #8b7355; 
+            border-left: 2px solid #8b7355; 
+            border-top-left-radius: 10px;
+        }
+        .corner-tr { 
+            top: 8px; 
+            right: 8px; 
+            border-top: 2px solid #8b7355; 
+            border-right: 2px solid #8b7355; 
+            border-top-right-radius: 10px;
+        }
+        .corner-bl { 
+            bottom: 8px; 
+            left: 8px; 
+            border-bottom: 2px solid #8b7355; 
+            border-left: 2px solid #8b7355; 
+            border-bottom-left-radius: 10px;
+        }
+        .corner-br { 
+            bottom: 8px; 
+            right: 8px; 
+            border-bottom: 2px solid #8b7355; 
+            border-right: 2px solid #8b7355; 
+            border-bottom-right-radius: 10px;
+        }
 
         .letter-header {
             text-align: center;
@@ -267,16 +318,21 @@
             font-family: 'Great Vibes', cursive;
             font-size: 2.2em;
             color: #6b5b4f;
+            margin: 10px 0;
         }
 
         .letter-content {
             font-family: 'Kalam', cursive;
             font-size: 1.05em;
             line-height: 1.9;
+            color: #3d3d3d;
+            display: block;
+            visibility: visible;
         }
 
         .letter-content p {
             margin-bottom: 16px;
+            color: #3d3d3d;
         }
 
         .letter-greeting {
@@ -284,26 +340,48 @@
             font-size: 1.8em;
             color: #6b5b4f;
             margin-bottom: 20px;
+            display: block;
         }
 
         /* Text styling */
-        .hl { background: rgba(255, 215, 0, 0.3); padding: 1px 4px; border-radius: 3px; }
-        .em { color: #8b5a5a; font-style: italic; }
-        .st { color: #4a6fa5; font-weight: 700; }
-        .lv { color: #c44569; font-weight: 600; }
-        .gd { color: #b8860b; font-weight: 600; }
+        .hl { 
+            background-color: rgba(255, 215, 0, 0.3); 
+            padding: 1px 4px; 
+            border-radius: 3px; 
+        }
+        .em { 
+            color: #8b5a5a; 
+            font-style: italic; 
+        }
+        .st { 
+            color: #4a6fa5; 
+            font-weight: 700; 
+        }
+        .lv { 
+            color: #c44569; 
+            font-weight: 600; 
+        }
+        .gd { 
+            color: #b8860b; 
+            font-weight: 600; 
+        }
 
         /* Quote box */
         .quote-box {
-            background: rgba(139, 119, 101, 0.08);
+            background-color: rgba(139, 119, 101, 0.08);
             border-left: 3px solid #c9a959;
             padding: 12px 15px;
             margin: 20px 0;
             border-radius: 0 8px 8px 0;
+            display: block;
         }
 
-        .quote-box p { margin-bottom: 8px; }
-        .quote-box p:last-child { margin-bottom: 0; }
+        .quote-box p { 
+            margin-bottom: 8px; 
+        }
+        .quote-box p:last-child { 
+            margin-bottom: 0; 
+        }
 
         /* Lists */
         .letter-list {
@@ -316,12 +394,14 @@
             padding-left: 28px;
             margin-bottom: 10px;
             position: relative;
+            color: #3d3d3d;
         }
 
         .letter-list li::before {
             content: attr(data-icon);
             position: absolute;
             left: 0;
+            top: 0;
         }
 
         /* Divider */
@@ -343,17 +423,27 @@
 
         /* Affirmation box */
         .affirm-box {
-            background: rgba(0, 212, 255, 0.08);
+            background-color: rgba(0, 212, 255, 0.08);
             border: 2px dashed #c9a959;
             border-radius: 12px;
             padding: 15px 20px;
             margin: 20px 0;
             text-align: center;
+            display: block;
         }
 
-        .affirm-box p { margin-bottom: 6px; }
-        .neg { color: #888; text-decoration: line-through; }
-        .pos { color: #4a6fa5; font-weight: 700; }
+        .affirm-box p { 
+            margin-bottom: 6px; 
+            color: #3d3d3d;
+        }
+        .neg { 
+            color: #888; 
+            text-decoration: line-through; 
+        }
+        .pos { 
+            color: #4a6fa5; 
+            font-weight: 700; 
+        }
 
         /* Big text */
         .big-text {
@@ -397,13 +487,22 @@
             right: 30px;
             width: 55px;
             height: 55px;
-            background: radial-gradient(circle at 30% 30%, #c41e3a, #8b0000);
+            background-color: #c41e3a;
+            background-image: radial-gradient(circle at 30% 30%, #c41e3a, #8b0000);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 22px;
             box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+
+        /* Letter footer decoration */
+        .letter-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #c9a959;
         }
 
         /* Wishes Grid */
@@ -414,7 +513,8 @@
         }
 
         .wish-card {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-color: #667eea;
+            background-image: linear-gradient(135deg, #667eea, #764ba2);
             padding: 20px;
             border-radius: 15px;
             text-align: center;
@@ -423,16 +523,19 @@
         .wish-card .emoji {
             font-size: 35px;
             margin-bottom: 10px;
+            display: block;
         }
 
         .wish-card h3 {
             font-size: 1em;
             margin-bottom: 8px;
+            color: #fff;
         }
 
         .wish-card p {
             font-size: 0.85em;
             opacity: 0.9;
+            color: #fff;
         }
 
         /* Cake Section */
@@ -444,38 +547,51 @@
         .cake-display {
             font-size: 100px;
             cursor: pointer;
+            line-height: 1;
+            display: inline-block;
         }
 
         .action-btn {
             margin-top: 20px;
             padding: 15px 40px;
             font-size: 1.1em;
-            background: linear-gradient(135deg, #ff6b9d, #ff8a80);
+            background-color: #ff6b9d;
+            background-image: linear-gradient(135deg, #ff6b9d, #ff8a80);
             color: white;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: opacity 0.2s ease;
         }
 
         .action-btn:hover {
             opacity: 0.9;
         }
 
-        .hidden { display: none; }
-        .show { display: block; }
+        .hidden { 
+            display: none !important; 
+        }
+        
+        .show { 
+            display: block !important; 
+        }
 
         /* Gift Section */
+        .gift-container {
+            text-align: center;
+        }
+
         .gift-box {
             font-size: 80px;
             cursor: pointer;
             display: inline-block;
+            line-height: 1;
         }
 
         .gift-message {
             margin-top: 25px;
             padding: 25px;
-            background: rgba(255, 215, 0, 0.15);
+            background-color: rgba(255, 215, 0, 0.15);
             border-radius: 15px;
             border: 2px solid #ffd700;
         }
@@ -486,7 +602,16 @@
             margin-bottom: 15px;
         }
 
+        .gift-message p {
+            color: #e0e0e0;
+            line-height: 1.8;
+        }
+
         /* Quiz */
+        .quiz-container {
+            text-align: center;
+        }
+
         .quiz-question {
             font-size: 1.2em;
             color: #00d4ff;
@@ -504,38 +629,46 @@
 
         .quiz-option {
             padding: 14px 20px;
-            background: rgba(102, 126, 234, 0.25);
+            background-color: rgba(102, 126, 234, 0.25);
             border: 2px solid rgba(102, 126, 234, 0.4);
             border-radius: 12px;
             color: white;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background-color 0.2s ease;
             font-size: 1em;
+            font-family: inherit;
         }
 
         .quiz-option:hover {
-            background: rgba(102, 126, 234, 0.5);
+            background-color: rgba(102, 126, 234, 0.5);
         }
 
         .quiz-option.correct {
-            background: linear-gradient(135deg, #00c853, #00e676);
+            background-color: #00c853;
+            background-image: linear-gradient(135deg, #00c853, #00e676);
             border-color: #00e676;
         }
 
         .quiz-option.wrong {
-            background: linear-gradient(135deg, #ff4444, #ff6b6b);
+            background-color: #ff4444;
+            background-image: linear-gradient(135deg, #ff4444, #ff6b6b);
             border-color: #ff6b6b;
         }
 
         .quiz-result {
             text-align: center;
             padding: 20px;
-            background: rgba(0, 212, 255, 0.15);
+            background-color: rgba(0, 212, 255, 0.15);
             border-radius: 12px;
             border: 2px solid #00d4ff;
         }
 
         /* Final Section */
+        .final-container {
+            text-align: center;
+            padding: 20px;
+        }
+
         .final-text {
             font-family: 'Pacifico', cursive;
             font-size: 1.5em;
@@ -551,7 +684,8 @@
             width: 55px;
             height: 55px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-color: #667eea;
+            background-image: linear-gradient(135deg, #667eea, #764ba2);
             border: none;
             cursor: pointer;
             font-size: 24px;
@@ -564,19 +698,21 @@
             position: fixed;
             bottom: 90px;
             right: 20px;
-            background: rgba(26, 26, 58, 0.95);
+            background-color: rgba(26, 26, 58, 0.95);
             color: white;
             padding: 12px 20px;
             border-radius: 25px;
             font-size: 0.9em;
             opacity: 0;
-            transition: opacity 0.3s;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
             z-index: 100;
             pointer-events: none;
         }
 
         .toast.show {
             opacity: 1;
+            visibility: visible;
         }
 
         /* Confetti - Simpler */
@@ -585,16 +721,23 @@
             top: -10px;
             animation: fall 4s linear forwards;
             z-index: 1000;
+            pointer-events: none;
         }
 
         @keyframes fall {
-            to { transform: translateY(100vh); }
+            0% {
+                transform: translateY(0);
+            }
+            100% { 
+                transform: translateY(100vh); 
+            }
         }
 
         /* Responsive */
         @media (max-width: 600px) {
             .header h1 { font-size: 2em; }
             .entrance-title { font-size: 1.5em; }
+            .entrance-cake { font-size: 60px; }
             .age-number { font-size: 4em; }
             .section { padding: 25px 18px; }
             .birthday-letter { padding: 35px 20px 45px; }
@@ -609,6 +752,7 @@
             .wax-seal { width: 45px; height: 45px; font-size: 18px; right: 20px; bottom: -15px; }
             .letter-sig { padding-right: 10px; }
             .letter-corner { width: 35px; height: 35px; }
+            .final-text { font-size: 1.2em; }
         }
 
         /* Reduce motion for users who prefer it */
@@ -893,7 +1037,7 @@
                     </div>
                     
                     <!-- Footer decoration -->
-                    <div style="text-align:center;margin-top:30px;color:#c9a959;">~ ❀ ~ ❀ ~ ❀ ~</div>
+                    <div class="letter-footer">~ ❀ ~ ❀ ~ ❀ ~</div>
                     
                     <!-- Wax seal -->
                     <div class="wax-seal">💙</div>
@@ -906,32 +1050,32 @@
             <h2 class="section-title">🌟 Birthday Wishes 🌟</h2>
             <div class="wishes-grid">
                 <div class="wish-card">
-                    <div class="emoji">💖</div>
+                    <span class="emoji">💖</span>
                     <h3>Love & Happiness</h3>
                     <p>May your heart be filled with love and joy</p>
                 </div>
                 <div class="wish-card">
-                    <div class="emoji">✨</div>
+                    <span class="emoji">✨</span>
                     <h3>Dreams Come True</h3>
                     <p>May all your wishes become reality</p>
                 </div>
                 <div class="wish-card">
-                    <div class="emoji">🌟</div>
+                    <span class="emoji">🌟</span>
                     <h3>Success & Growth</h3>
                     <p>May you achieve everything you desire</p>
                 </div>
                 <div class="wish-card">
-                    <div class="emoji">🌈</div>
+                    <span class="emoji">🌈</span>
                     <h3>Adventures</h3>
                     <p>May life take you on beautiful journeys</p>
                 </div>
                 <div class="wish-card">
-                    <div class="emoji">💪</div>
+                    <span class="emoji">💪</span>
                     <h3>Strength</h3>
                     <p>May you overcome every challenge</p>
                 </div>
                 <div class="wish-card">
-                    <div class="emoji">🌸</div>
+                    <span class="emoji">🌸</span>
                     <h3>Peace</h3>
                     <p>May you find peace in your heart</p>
                 </div>
@@ -943,6 +1087,7 @@
             <h2 class="section-title">🎂 Make a Wish! 🎂</h2>
             <div class="cake-container">
                 <div class="cake-display" id="cake" onclick="blowCandles()">🎂</div>
+                <br>
                 <button class="action-btn" id="blowBtn" onclick="blowCandles()">🌬️ Blow the Candles!</button>
                 <p id="wishText" style="margin-top:15px;color:#a8dadc;">Close your eyes, make a wish, and click to blow! ✨</p>
                 <div id="candlesBlown" class="hidden">
@@ -955,12 +1100,12 @@
         <!-- Gift Box Section -->
         <section class="section" id="sec6">
             <h2 class="section-title">🎁 A Special Gift 🎁</h2>
-            <div style="text-align:center;">
+            <div class="gift-container">
                 <div class="gift-box" id="gift" onclick="openGift()">🎁</div>
                 <p style="margin-top:15px;color:#a8dadc;">Click the gift to open it! 🎉</p>
                 <div id="giftMsg" class="gift-message hidden">
                     <h3>🌟 My Promise To You 🌟</h3>
-                    <p style="line-height:1.8;color:#e0e0e0;">
+                    <p>
                         My gift to you isn't something you can hold in your hands,<br>
                         but something you can hold in your heart forever.<br><br>
                         I promise to:<br>
@@ -979,7 +1124,7 @@
         <!-- Birthday Quiz Section -->
         <section class="section" id="sec7">
             <h2 class="section-title">🎯 Quick Quiz 🎯</h2>
-            <div id="quizContent">
+            <div class="quiz-container" id="quizContent">
                 <p class="quiz-question" id="quizQ">Loading...</p>
                 <div class="quiz-options" id="quizOpts"></div>
             </div>
@@ -992,7 +1137,7 @@
         <!-- Final Message Section -->
         <section class="section" id="sec8">
             <h2 class="section-title">💙 One Last Thing... 💙</h2>
-            <div style="text-align:center;padding:20px;">
+            <div class="final-container">
                 <p class="final-text">
                     You are loved. 💙<br>
                     You are appreciated. ✨<br>
@@ -1019,32 +1164,49 @@
     </audio>
 
     <script>
-        // Ultra-lightweight JavaScript
+        // Add JS-enabled class for progressive enhancement
+        document.documentElement.classList.add('js-enabled');
 
         // Enter site
         function enterSite() {
-            document.getElementById('entrance').classList.add('hidden');
-            document.getElementById('mainContent').style.display = 'block';
-            startFloating();
-            startCountdown();
-            initScrollObserver();
-            initQuiz();
-            createConfetti(25);
-            setTimeout(() => showToast('🎵 Click music button for tunes!'), 1500);
+            var entrance = document.getElementById('entrance');
+            var mainContent = document.getElementById('mainContent');
+            
+            if (entrance && mainContent) {
+                entrance.classList.add('hidden');
+                mainContent.style.display = 'block';
+                
+                // Small delay to ensure content is rendered
+                setTimeout(function() {
+                    startFloating();
+                    startCountdown();
+                    initScrollObserver();
+                    initQuiz();
+                    createConfetti(25);
+                }, 100);
+                
+                setTimeout(function() {
+                    showToast('🎵 Click music button for tunes!');
+                }, 1500);
+            }
         }
 
-        // Minimal floating elements - only 5, slower
+        // Minimal floating elements
         function startFloating() {
-            const container = document.getElementById('floatingEl');
-            const items = ['🎈', '⭐', '✨', '🎉', '💙'];
+            var container = document.getElementById('floatingEl');
+            if (!container) return;
             
-            // Create only 5 initial items
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => createFloatingItem(container, items), i * 1500);
+            var items = ['🎈', '⭐', '✨', '🎉', '💙'];
+            
+            for (var i = 0; i < 5; i++) {
+                (function(index) {
+                    setTimeout(function() {
+                        createFloatingItem(container, items);
+                    }, index * 1500);
+                })(i);
             }
             
-            // Very slow interval - every 5 seconds, max 5 items
-            setInterval(() => {
+            setInterval(function() {
                 if (container.children.length < 5) {
                     createFloatingItem(container, items);
                 }
@@ -1052,59 +1214,91 @@
         }
 
         function createFloatingItem(container, items) {
-            const item = document.createElement('div');
+            var item = document.createElement('div');
             item.className = 'floating-item';
             item.textContent = items[Math.floor(Math.random() * items.length)];
             item.style.left = Math.random() * 100 + 'vw';
             item.style.fontSize = (Math.random() * 10 + 18) + 'px';
             item.style.animationDuration = '20s';
             container.appendChild(item);
-            item.addEventListener('animationend', () => item.remove());
+            
+            item.addEventListener('animationend', function() {
+                if (item.parentNode) {
+                    item.parentNode.removeChild(item);
+                }
+            });
         }
 
-        // Scroll observer
+        // Scroll observer with fallback
         function initScrollObserver() {
-            const sections = document.querySelectorAll('.section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
+            var sections = document.querySelectorAll('.section');
+            
+            // Check if IntersectionObserver is supported
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { 
+                    threshold: 0.1,
+                    rootMargin: '50px'
                 });
-            }, { threshold: 0.1 });
-            sections.forEach(s => observer.observe(s));
+                
+                sections.forEach(function(section) {
+                    observer.observe(section);
+                });
+            } else {
+                // Fallback: just show all sections
+                sections.forEach(function(section) {
+                    section.classList.add('visible');
+                });
+            }
         }
 
         // Countdown
         function startCountdown() {
-            const birthday = new Date();
-            birthday.setMonth(2); // March
+            var birthday = new Date();
+            birthday.setMonth(2); // March (0-indexed)
             birthday.setDate(8);
             birthday.setHours(0, 0, 0, 0);
             
-            const now = new Date();
-            if (now > birthday) birthday.setFullYear(birthday.getFullYear() + 1);
+            var now = new Date();
+            if (now > birthday) {
+                birthday.setFullYear(birthday.getFullYear() + 1);
+            }
             
-            const isBirthday = now.getMonth() === birthday.getMonth() && now.getDate() === birthday.getDate();
+            var isBirthday = now.getMonth() === birthday.getMonth() && now.getDate() === birthday.getDate();
             
             function update() {
-                const now = new Date();
-                const diff = birthday - now;
+                var now = new Date();
+                var diff = birthday - now;
+                
+                var daysEl = document.getElementById('days');
+                var hoursEl = document.getElementById('hours');
+                var minutesEl = document.getElementById('minutes');
+                var secondsEl = document.getElementById('seconds');
+                var msgEl = document.getElementById('countdownMsg');
+                
+                if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
                 
                 if (isBirthday || diff <= 0) {
-                    document.getElementById('days').textContent = '🎂';
-                    document.getElementById('hours').textContent = '🎉';
-                    document.getElementById('minutes').textContent = '🎈';
-                    document.getElementById('seconds').textContent = '✨';
-                    document.getElementById('countdownMsg').innerHTML = "<span style='color:#ffd700;'>🎉 TODAY IS YOUR BIRTHDAY! 🎉</span>";
+                    daysEl.textContent = '🎂';
+                    hoursEl.textContent = '🎉';
+                    minutesEl.textContent = '🎈';
+                    secondsEl.textContent = '✨';
+                    if (msgEl) {
+                        msgEl.innerHTML = "<span style='color:#ffd700;'>🎉 TODAY IS YOUR BIRTHDAY! 🎉</span>";
+                    }
                     return;
                 }
                 
-                document.getElementById('days').textContent = Math.floor(diff / 86400000);
-                document.getElementById('hours').textContent = Math.floor((diff % 86400000) / 3600000);
-                document.getElementById('minutes').textContent = Math.floor((diff % 3600000) / 60000);
-                document.getElementById('seconds').textContent = Math.floor((diff % 60000) / 1000);
+                daysEl.textContent = Math.floor(diff / 86400000);
+                hoursEl.textContent = Math.floor((diff % 86400000) / 3600000);
+                minutesEl.textContent = Math.floor((diff % 3600000) / 60000);
+                secondsEl.textContent = Math.floor((diff % 60000) / 1000);
             }
             
             update();
@@ -1112,76 +1306,100 @@
         }
 
         // Quiz
-        const questions = [
+        var questions = [
             { q: "What's my favorite thing about you?", opts: ["Your smile 😊", "Everything! 💕", "Your personality ✨", "All of the above 💖"], ans: 3 },
             { q: "How much do I love you?", opts: ["A lot", "So much", "More than words", "To infinity! 🚀"], ans: 3 },
             { q: "What do I think of your selfies?", opts: ["Cute", "Pretty", "Gorgeous", "I'm the luckiest! 🥰"], ans: 3 },
             { q: "My birthday wish for you?", opts: ["Happiness", "Dreams come true", "Celebrate together", "All of these! 🌟"], ans: 3 }
         ];
-        let currentQ = 0;
+        var currentQ = 0;
 
-        function initQuiz() { showQuestion(0); }
+        function initQuiz() { 
+            showQuestion(0); 
+        }
 
         function showQuestion(idx) {
+            var quizContent = document.getElementById('quizContent');
+            var quizResult = document.getElementById('quizResult');
+            var quizQ = document.getElementById('quizQ');
+            var quizOpts = document.getElementById('quizOpts');
+            
+            if (!quizContent || !quizQ || !quizOpts) return;
+            
             if (idx >= questions.length) {
-                document.getElementById('quizContent').classList.add('hidden');
-                document.getElementById('quizResult').classList.remove('hidden');
-                document.getElementById('quizResult').classList.add('show');
+                quizContent.classList.add('hidden');
+                if (quizResult) {
+                    quizResult.classList.remove('hidden');
+                }
                 createConfetti(20);
                 return;
             }
             
-            const q = questions[idx];
-            document.getElementById('quizQ').textContent = q.q;
+            var q = questions[idx];
+            quizQ.textContent = q.q;
+            quizOpts.innerHTML = '';
             
-            const optsDiv = document.getElementById('quizOpts');
-            optsDiv.innerHTML = '';
-            
-            q.opts.forEach((opt, i) => {
-                const btn = document.createElement('button');
+            q.opts.forEach(function(opt, i) {
+                var btn = document.createElement('button');
                 btn.className = 'quiz-option';
                 btn.textContent = opt;
-                btn.onclick = () => selectAnswer(i);
-                optsDiv.appendChild(btn);
+                btn.type = 'button';
+                btn.onclick = function() { selectAnswer(i); };
+                quizOpts.appendChild(btn);
             });
         }
 
         function selectAnswer(sel) {
-            const q = questions[currentQ];
-            const opts = document.querySelectorAll('.quiz-option');
+            var q = questions[currentQ];
+            var opts = document.querySelectorAll('.quiz-option');
             
-            opts.forEach((opt, i) => {
+            opts.forEach(function(opt, i) {
                 opt.onclick = null;
-                if (i === q.ans) opt.classList.add('correct');
-                else if (i === sel) opt.classList.add('wrong');
+                opt.style.pointerEvents = 'none';
+                if (i === q.ans) {
+                    opt.classList.add('correct');
+                } else if (i === sel) {
+                    opt.classList.add('wrong');
+                }
             });
             
-            setTimeout(() => { currentQ++; showQuestion(currentQ); }, 1200);
+            setTimeout(function() { 
+                currentQ++; 
+                showQuestion(currentQ); 
+            }, 1200);
         }
 
         // Cake
-        let candlesBlown = false;
+        var candlesBlown = false;
         function blowCandles() {
             if (candlesBlown) return;
             candlesBlown = true;
             
-            document.getElementById('cake').textContent = '🍰';
-            document.getElementById('blowBtn').classList.add('hidden');
-            document.getElementById('wishText').classList.add('hidden');
-            document.getElementById('candlesBlown').classList.remove('hidden');
-            document.getElementById('candlesBlown').classList.add('show');
+            var cake = document.getElementById('cake');
+            var blowBtn = document.getElementById('blowBtn');
+            var wishText = document.getElementById('wishText');
+            var candlesBlownEl = document.getElementById('candlesBlown');
+            
+            if (cake) cake.textContent = '🍰';
+            if (blowBtn) blowBtn.classList.add('hidden');
+            if (wishText) wishText.classList.add('hidden');
+            if (candlesBlownEl) candlesBlownEl.classList.remove('hidden');
+            
             createConfetti(30);
         }
 
         // Gift
-        let giftOpened = false;
+        var giftOpened = false;
         function openGift() {
             if (giftOpened) return;
             giftOpened = true;
             
-            document.getElementById('gift').textContent = '🎊';
-            document.getElementById('giftMsg').classList.remove('hidden');
-            document.getElementById('giftMsg').classList.add('show');
+            var gift = document.getElementById('gift');
+            var giftMsg = document.getElementById('giftMsg');
+            
+            if (gift) gift.textContent = '🎊';
+            if (giftMsg) giftMsg.classList.remove('hidden');
+            
             createConfetti(20);
         }
 
@@ -1191,30 +1409,39 @@
             showToast('🎉 Happy Birthday, my love! 💙✨');
         }
 
-        // Simple confetti - reduced count, no rotation
+        // Simple confetti
         function createConfetti(count) {
-            const colors = ['#667eea', '#764ba2', '#00d4ff', '#ff6b9d', '#ffd700'];
+            var colors = ['#667eea', '#764ba2', '#00d4ff', '#ff6b9d', '#ffd700'];
             
-            for (let i = 0; i < count; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = Math.random() * 100 + 'vw';
-                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.width = confetti.style.height = (Math.random() * 6 + 4) + 'px';
-                    confetti.style.borderRadius = '50%';
-                    document.body.appendChild(confetti);
-                    
-                    setTimeout(() => confetti.remove(), 4000);
-                }, i * 50);
+            for (var i = 0; i < count; i++) {
+                (function(index) {
+                    setTimeout(function() {
+                        var confetti = document.createElement('div');
+                        confetti.className = 'confetti';
+                        confetti.style.left = Math.random() * 100 + 'vw';
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.width = (Math.random() * 6 + 4) + 'px';
+                        confetti.style.height = confetti.style.width;
+                        confetti.style.borderRadius = '50%';
+                        document.body.appendChild(confetti);
+                        
+                        setTimeout(function() {
+                            if (confetti.parentNode) {
+                                confetti.parentNode.removeChild(confetti);
+                            }
+                        }, 4000);
+                    }, index * 50);
+                })(i);
             }
         }
 
         // Music
-        let musicPlaying = false;
+        var musicPlaying = false;
         function toggleMusic() {
-            const music = document.getElementById('bgMusic');
-            const btn = document.getElementById('musicBtn');
+            var music = document.getElementById('bgMusic');
+            var btn = document.getElementById('musicBtn');
+            
+            if (!music || !btn) return;
             
             if (musicPlaying) {
                 music.pause();
@@ -1222,27 +1449,34 @@
                 musicPlaying = false;
                 showToast('🔇 Music paused');
             } else {
-                music.play().then(() => {
-                    btn.textContent = '🔊';
-                    musicPlaying = true;
-                    showToast('🎵 Playing music!');
-                }).catch(() => {
-                    showToast('⚠️ Add heureux.mp3');
-                });
+                var playPromise = music.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(function() {
+                        btn.textContent = '🔊';
+                        musicPlaying = true;
+                        showToast('🎵 Playing music!');
+                    }).catch(function() {
+                        showToast('⚠️ Add heureux.mp3 file');
+                    });
+                }
             }
         }
 
         // Toast
         function showToast(msg) {
-            const toast = document.getElementById('toast');
+            var toast = document.getElementById('toast');
+            if (!toast) return;
+            
             toast.textContent = msg;
             toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+            
+            setTimeout(function() {
+                toast.classList.remove('show');
+            }, 3000);
         }
     </script>
 </body>
 </html>
-
 
 
 
